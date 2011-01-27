@@ -1,5 +1,5 @@
 Ldap user management:
-requires jinja2 (included), cherrypy(3.2x, included) and ldap python packages
+requires jinja2, cherrypy 3.2x and ldap-python
 
 
 {% ... %}  : used to execute statements such as for-loops or assign values
