@@ -1,0 +1,29 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN"
+       "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<title>{% block title %}{% endblock %}</title>
+<link rel="stylesheet" type="text/css" href="/static/style.css" type="text/css"></link>
+
+{# http://www.favicon.cc/?action=icon&file_id=32641 Creative Commons based new hacker favicon #}
+<link href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAbUlEQVRIx82UOw4AIAhDrfEczt7fA+riZgxY8NPRwND2IdpQeKTELgIAML/v2olWBznXWgq/D7YCrwToCrzIMVdgFZ2AVlJV1xJYwUpD6JXA8Qoke/9BqL1vr7llAtofzjo3QXg7geNXIOk5hB3kjHms8LC50QAAAABJRU5ErkJggg==" rel="icon" type="image/x-icon" />
+
+</head>
+<body>
+
+<div id="navigation">
+    <ul>
+      <li><a href="/users">List Users</a></li>
+      <li><a href="/groups">List Groups</a></li>
+    </ul>  
+</div>
+
+  <div id="content">
+  {% block content %}{% endblock %}
+
+  </div>
+
+  <p id="footer">C3PB User Management</p>
+
+</body>
+</html>

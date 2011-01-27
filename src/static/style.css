@@ -1,0 +1,67 @@
+  body {
+    color: black; background-color: white;
+    font-size: 100.01%;
+    font-family: Helvetica,Arial,sans-serif;
+    margin: 0; padding: 1em;
+    min-width: 41em; /* Mindestbreite verhindert Umbruch und Anzeigefehler in modernen Browsern */
+  }
+
+  h1 {
+    font-size: 1.5em;
+    margin: 0 0 0.7em; padding: 0.3em;
+    text-align: center;
+    background-color: #D8DFEA;
+    border: 2px ridge silver;
+  }
+
+  div#navigation {
+    font-size: 0.83em;
+    float: left; width: 18em;
+    margin: 0 0 1.2em; padding: 0;
+    border: 1px dashed silver;
+  }
+  ul#navigation li {
+    list-style: none;
+    margin: 0; padding: 0.5em;
+  }
+  ul#navigation a {
+    display: block;
+    padding: 0.2em;
+    font-weight: bold;
+  }
+  ul#navigation a:link {
+    color: black; background-color: #eee;
+  }
+  ul#navigation a:visited {
+    color: #666; background-color: #eee;
+  }
+  ul#navigation a:hover {
+    color: black; background-color: white;
+  }
+  ul#navigation a:active {
+    color: white; background-color: gray;
+  }
+
+
+  div#content {
+    margin: 0 0 1em 16em;
+    padding: 0 1em;
+    border: 1px dashed silver;
+  }
+ 
+  div#content h2 {
+    font-size: 1.2em;
+    margin: 0.2em 0;
+  }
+  div#content p {
+    font-size: 1em;
+    margin: 1em 0;
+  }
+
+  p#content {
+    clear: both;
+    font-size: 0.9em;
+    margin: 0; padding: 0.1em;
+    text-align: center;
+    background-color: #D8DFEA; border: 1px solid silver;
+  }

@@ -1,0 +1,14 @@
+Ldap user management:
+requires jinja2 (included), cherrypy(3.2x, included) and ldap python packages
+
+
+{% ... %}  : used to execute statements such as for-loops or assign values
+{{ ... }}  : prints the result of the expression to the template.
+{# ... #}  : comment out the content
+
+
+
+Authorization:
+
+basic auth against the ldap:
+contains two methods to separate /member/ and /admin/ authentication realms
