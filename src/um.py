@@ -10,7 +10,7 @@
 #
 
 
-#NlxMQjDG
+
 
 import os
 import cherrypy
@@ -19,13 +19,14 @@ import ConfigParser
 import cherrypy.lib.auth_basic
 
 from jumpages.admin import Admin
+from jumpages.member import Member
 
 from jinja2 import Environment, PackageLoader
 
 #This will create a template environment with the default settings
 #and a loader that looks up the templates in the templates folder 
 #inside the yourapplication python package.
-env = Environment(loader=PackageLoader('jum', 'templates'))
+env = Environment(loader=PackageLoader('um', 'templates'))
 
 from ldaphelper import LdapConn
 
@@ -34,7 +35,7 @@ class Root(object):
     @cherrypy.expose
     def index(self):
         template = env.get_template('index.html')
-        return template.render(title='JUM')
+        return template.render(title='UM')
 
 
 def authAdmin(realm,user,password):
@@ -50,13 +51,13 @@ def authMember(realm,user,password):
     
 def main():
     config = ConfigParser.RawConfigParser()
-    config.read('jum.cfg')
+    config.read('um.cfg')
 
-    ldap_server = config.get("jum", "ldap_server")
-    people_basedn = config.get("jum", "people_basedn")
-    groups_basedn = config.get("jum", "groups_basedn")
-    admin_dn = config.get("jum", "admin_dn")
-    admin_pw = config.get("jum", "admin_pw")    
+    ldap_server = config.get("um", "ldap_server")
+    people_basedn = config.get("um", "people_basedn")
+    groups_basedn = config.get("um", "groups_basedn")
+    admin_dn = config.get("um", "admin_dn")
+    admin_pw = config.get("um", "admin_pw")    
 
     #create globally shared ldapConnection
     global ldapConn
@@ -94,8 +95,8 @@ def main():
     }
     
     cherrypy.tree.mount(Root(),"/",rootconf)
-    cherrypy.tree.mount(Admin(env),"/admin",adminconf)
-    cherrypy.tree.mount(Member(),"/member",memberconf)
+    cherrypy.tree.mount(Admin(env,ldapConn),"/admin",adminconf)
+    cherrypy.tree.mount(Member(env,ldapConn),"/member",memberconf)
     
     cherrypy.engine.start()
     cherrypy.engine.block()

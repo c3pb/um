@@ -1,9 +1,6 @@
-[jum]
+[um]
 ldap_server= ldap://localhost:389
 people_basedn= uid={USERNAME},ou=people,dc=XXX,dc=YYY
 groups_basedn= ou=groups,dc=XXX,dc=YYY
 admin_dn= cn=admin,dc=XXX,dc=YYY
 admin_pw= XXXX
-
-
-
