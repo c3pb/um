@@ -2,10 +2,10 @@
 
 #
 # ----------------------------------------------------------------------------
-# "THE CLUB-MATE LICENSE" (Revision 23):
+# "THE CLUB-MATE LICENSE" (Revision 23.5):
 # Some guys from the c3pb.de wrote this file. As long as you retain this notice you
-# can do whatever you want with this stuff. If you meet some of us some day, and you think
-# this stuff is worth it, you can buy use a club-mate in return.
+# can do whatever you want with this stuff. If you meet one of us some day, and you think
+# this stuff is worth it, you can buy them a club-mate in return.
 # ----------------------------------------------------------------------------
 #
 
