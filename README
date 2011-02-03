@@ -12,3 +12,7 @@ Authorization:
 
 basic auth against the ldap:
 contains two methods to separate /member/ and /admin/ authentication realms
+
+http://docs.cherrypy.org/dev/progguide/extending/customtools.html
+
+http://tools.cherrypy.org/wiki/AuthenticationAndAccessRestrictions

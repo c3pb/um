@@ -1,0 +1,19 @@
+{% extends "template.html" %}
+{% block title %}Login{% endblock %}
+
+{% block content %}
+    <h1>Login</h1>
+   
+	<p>{{error_msg}}</p>
+	
+	<form method="post" action="do_login">
+      <input type="hidden" name="from_page" value="{{from_page}}" />
+        
+        Username: <input type="text" name="username" value="%(username)s" /><br />
+        Password: <input type="password" name="password" /><br />
+        <input type="submit" value="Log in" />
+    </form>
+	
+{% endblock %}
+
+

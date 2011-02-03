@@ -9,35 +9,33 @@
 
 import ldap
 
-
+        
 class LdapConn:
+    global ldap_server
 #    ldapcon = None
         
-    def __init__(self,ldap_server,people_basedn,groups_basedn,admin_dn,admin_pw):
+    def __init__(self,ldap_server, people_basedn, groups_basedn, admin_dn,admin_pw):
         self.ldap_server = ldap_server
         self.people_basedn = people_basedn
         self.groups_basedn = groups_basedn
         self.ldapcon = ldap.initialize(ldap_server)
         self.ldapcon.simple_bind_s( admin_dn, admin_pw )
 
-    def get_users(self):
-        
+    def get_users(self):    
         filter = '(objectclass=person)'
         attrs = ['uid', 'cn', 'sn', 'mail']
         users = self.ldapcon.search_s( self.people_basedn, ldap.SCOPE_SUBTREE, filter, attrs )
         return users
         
-    def hasAccess(self,username,password):
         
-        try:
-            # con = ldap.initialize(server)
-            user_dn = self.people_basedn.format(USERNAME=username) #{"USERNAME" : username})
-            print user_dn
-            self.ldapcon.bind_s(user_dn, password)
-            print "user authenticated"
-            return True
-        except ldap.INVALID_CREDENTIALS:
-            print "Username or password is incorrect."
-            return False
-        # finally:
-        #     con.unbind()
+        # def check_username_and_password(username, password):
+        #           """Verifies credentials for username and password.
+        #           Returns None on success or a string describing the error on failure"""
+        #           print "check_credentials"
+        #           # Adapt to your needs
+        #           if username in ('joe', 'steve') and password == 'secret':
+        #               return None
+        #           else:
+        #               return u"Incorrect username or password."
+                
+    
