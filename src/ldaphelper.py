@@ -12,7 +12,6 @@ import ldap
         
 class LdapConn:
     global ldap_server
-#    ldapcon = None
         
     def __init__(self,ldap_server, people_basedn, groups_basedn, admin_dn,admin_pw):
         self.ldap_server = ldap_server
@@ -27,15 +26,4 @@ class LdapConn:
         users = self.ldapcon.search_s( self.people_basedn, ldap.SCOPE_SUBTREE, filter, attrs )
         return users
         
-        
-        # def check_username_and_password(username, password):
-        #           """Verifies credentials for username and password.
-        #           Returns None on success or a string describing the error on failure"""
-        #           print "check_credentials"
-        #           # Adapt to your needs
-        #           if username in ('joe', 'steve') and password == 'secret':
-        #               return None
-        #           else:
-        #               return u"Incorrect username or password."
-                
     

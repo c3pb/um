@@ -28,11 +28,11 @@ env = Environment(loader=PackageLoader('um', 'templates'))
 
 from ldaphelper import LdapConn
     
-class RestrictedArea:
+class DebugArea:
   
     @cherrypy.expose
     def index(self):
-        template = env.get_template('restricted.html')
+        template = env.get_template('debug.html')
         return template.render(title='UM', session=cherrypy.session)
     
 class Root(object):
@@ -48,7 +48,7 @@ class Root(object):
         raise cherrypy.HTTPRedirect("/")
         
             
-    restricted = RestrictedArea()    
+    debug = DebugArea()    
 
     
     
@@ -65,6 +65,14 @@ def check_username_and_password(username,password):
     try:
         # con = ldap.initialize(server)
         con.bind_s(user_dn, password)
+        query = '(&(objectClass=groupOfUniqueNames)(uniqueMember=uid=%s,ou=people,dc=chaos-paderborn,dc=de))' % (username)
+        groups = con.search_s(basedn,ldap.SCOPE_SUBTREE,query, ['cn'])
+        filteredGroups=[]
+        for group in groups:
+            print group[1]['cn'][0]
+            filteredGroups.append(group[1]['cn'][0])
+        cherrypy.session['groups'] = filteredGroups
+            
         #TODO read users groups from ldap and store them in the user's session.
         print "user authenticated"
         return None
@@ -85,11 +93,14 @@ def main():
     global ldap_server
     global people_basedn 
     global groups_basedn 
+    global basedn
     #     
     ldap_server = config.get("um", "ldap_server")
     people_basedn = config.get("um", "people_basedn")
     groups_basedn = config.get("um", "groups_basedn")
-
+    basedn = config.get("um", "basedn")
+    
+    
     admin_dn = config.get("um", "admin_dn")
     admin_pw = config.get("um", "admin_pw")    
 

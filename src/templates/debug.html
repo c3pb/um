@@ -4,11 +4,8 @@
 {% block content %}
     <h1>Restricted</h1>
     
-    Hello {{session['username']}} <br />
-	Is admin? {{session['isadmin']}}
-	
-	
-	
+    Username: {{session['username']}} <br />
+	Groups:? {{session['groups']}}
 	
 {% endblock %}
 
