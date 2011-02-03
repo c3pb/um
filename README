@@ -1,18 +1,4 @@
 Ldap user management:
 requires jinja2, cherrypy 3.2x and ldap-python
 
-
-{% ... %}  : used to execute statements such as for-loops or assign values
-{{ ... }}  : prints the result of the expression to the template.
-{# ... #}  : comment out the content
-
-
-
-Authorization:
-
-basic auth against the ldap:
-contains two methods to separate /member/ and /admin/ authentication realms
-
-http://docs.cherrypy.org/dev/progguide/extending/customtools.html
-
-http://tools.cherrypy.org/wiki/AuthenticationAndAccessRestrictions
+In the future this could become the backend of c3pb.de's ldap user management.
