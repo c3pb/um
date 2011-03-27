@@ -13,21 +13,16 @@ import os
 import cherrypy
 import ConfigParser
 
-import ldap
-
-#from jumpages.admin import Admin
-#from jumpages.member import Member
-
 from jinja2 import Environment, PackageLoader
-import ldaphelper
+from userdb.UserDB import UserDB
 
+
+userDB = None
 #This will create a template environment with the default settings
 #and a loader that looks up the templates in the templates folder 
 #inside the yourapplication python package.
 env = Environment(loader=PackageLoader('um', 'templates'))
 
-from ldaphelper import LdapConn
-    
 class DebugArea:
   
     @cherrypy.expose
@@ -57,33 +52,15 @@ def login_screen(self, from_page='/', username='', error_msg=''):
     return template.render(title='Login',from_page=from_page,username=username,error_msg=error_msg)    
     
     
-def check_username_and_password(username,password):
-
-    con = ldap.initialize(ldap_server)
-    user_dn = people_basedn.format(USERNAME=username) #{"USERNAME" : username})
-
-    try:
-        # con = ldap.initialize(server)
-        con.bind_s(user_dn, password)
-        query = '(&(objectClass=groupOfUniqueNames)(uniqueMember=uid=%s,ou=people,dc=chaos-paderborn,dc=de))' % (username)
-        groups = con.search_s(basedn,ldap.SCOPE_SUBTREE,query, ['cn'])
-        filteredGroups=[]
-        for group in groups:
-            print group[1]['cn'][0]
-            filteredGroups.append(group[1]['cn'][0])
-        cherrypy.session['groups'] = filteredGroups
-            
-        #TODO read users groups from ldap and store them in the user's session.
-        print "user authenticated"
-        return None
-    except ldap.LDAPError, e:
-        if type(e.message) == dict and e.message.has_key('desc'):
-            print e.message['desc']
+def check_username_and_password(nick,password):
+    user = userDB.login(nick, password)
+    if (user == None):
         print u"Incorrect username or password."
         return u"Incorrect username or password."
-    finally:
-        if (con):
-            con.unbind()
+
+    print "user authenticated"
+    return None
+   
                 
 def main():
     config = ConfigParser.RawConfigParser()
@@ -105,8 +82,8 @@ def main():
     admin_pw = config.get("um", "admin_pw")    
 
     #create globally shared ldapConnection
-    global ldapConn
-    ldapConn = LdapConn(ldap_server, people_basedn, groups_basedn, admin_dn,admin_pw)    
+    global userDB
+    userDB = UserDB(ldap_server, people_basedn, groups_basedn, admin_dn,admin_pw)    
     
     # Some global configuration; note that this could be moved into a
     # configuration file
