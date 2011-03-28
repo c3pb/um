@@ -50,7 +50,7 @@ class UserDB:
         return self.userDB.pop(nick)
     
     def getUser(self,nick):
-        return self.userDB[nick]
+        return self.userDB.get(nick)
     
     def getPasswordHash(self,password):
 #        print hashlib.sha256(password).hexdigest()

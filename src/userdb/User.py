@@ -8,14 +8,6 @@ class User(object):
     '''
     classdocs
     '''
-    #primary search key
-    nick=""
-    
-    givenName=""
-    email=""
-    jid=""
-    roles=[]
-    passwordhash=""
     
     def __init__(self, nick, passwordhash, givenName, email, jid, roles):
         '''
@@ -27,3 +19,9 @@ class User(object):
         self.email = email
         self.jid = jid
         self.roles = roles
+        
+        #if not an admin, this variable is undefined. This is required for correct visualization.
+        if 'admin' in roles:
+            self.isAdmin = True
+        
+    

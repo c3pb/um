@@ -16,6 +16,9 @@ import ConfigParser
 from jinja2 import Environment, PackageLoader
 from userdb.UserDB import UserDB
 
+#from pages.new import NewUser
+#from pages.admin import Admin
+
 
 userDB = None
 #This will create a template environment with the default settings
@@ -24,21 +27,58 @@ userDB = None
 env = Environment(loader=PackageLoader('um', 'templates'))
 
 
+class AllUsers():
+    '''
+    This class contains all pages for /all/**
+    '''
+    
+    @cherrypy.expose
+    def index(self):
+        template = env.get_template('all.html')
+        users = userDB.getAllUsers()
+        return template.render(title='All Users',users=users )
+
+    def __init__(self):
+        '''
+        Constructor
+        '''
     
 class Root(object):
     @cherrypy.expose
     def index(self):
+        "/"
         template = env.get_template('index.html')
-        return template.render(title='UM')
+        user = cherrypy.session.get('user')
+        return template.render(title='UM',user=user)
+        
+    @cherrypy.expose
+    def default(self,nick):
+        "/$nick"
+        user = cherrypy.session.get('user')
+        if nick == user.nick:
+            template = env.get_template('me.html')
+            return template.render(title='ME',user=user)
+        else:
+            template = env.get_template('user.html')
+            showUser = userDB.getUser(nick)
+            if showUser:
+                return template.render(title='Details for '+nick ,nick=nick, user=showUser)
+            else:
+                return template.render(title='Details for '+nick ,nick=nick, error="User "+nick+" does not exist")
     
     @cherrypy.expose
     def logout(self):
+        """ /logout """
         print "logout"
         cherrypy.lib.sessions.expire()
         raise cherrypy.HTTPRedirect("/")
         
-            
+#    global userDB
+#    new = NewUser(env,userDB)
+#    admin = Admin(env,userDB)
+    all = AllUsers()
 #    debug = DebugArea()    
+
 
     
     
@@ -57,6 +97,7 @@ def check_username_and_password(nick,password):
         return u"Incorrect username or password."
 
     print "user authenticated"
+    cherrypy.session['user'] = user
     return None
    
                 

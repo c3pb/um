@@ -16,13 +16,15 @@ class Admin():
     
     @cherrypy.expose
     def index(self):
-        template = self.env.get_template('admin.index.html')
-        return template.render(title='Admin only area')
+        template = self.env.get_template('admin.html')
+        users = self.userDB.getAllUsers()
+        return template.render(title='Admin only area', users=users)
 
-    def __init__(self,env,ldapConn):
+    def __init__(self,env,userDB):
         '''
         Constructor
         '''
         self.env = env
-        self.ldapConn = ldapConn
+        self.userDB = userDB
+#        self.ldapConn = ldapConn
 

@@ -3,5 +3,10 @@
 
 {% block content %}
     <h1>C3PB User Management</h1>
-    Hello user!
+    Hello {{nick}}!
+    
+    <ul>
+    	<li><a href="/{{user.nick}}">Change your details</a></li>
+    	<li><a href="/all">show all users</a></li>
+    </ul>
 {% endblock %}

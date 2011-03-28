@@ -1,7 +1,7 @@
 <style type="text/css">
 <!--
 body {
-background-color: #999999;
+background-color: #000000;
 font-size:12px;
 font-family:Verdana, Arial, Helvetica, sans-serif;
 }
@@ -12,19 +12,24 @@ padding: 15px;
 margin: 0px;
 text-align: center;
 }
+
 div#nav {
 padding: 10px;
 margin-top: 1px;
 border-top: thin solid #000000;
+text-align: center;
 }
 
 div#content {
 border-top: thin solid #000000;
 margin-top: 1px;
 padding: 10px;
+text-align: center;
 }
+
 div#footer {
 padding: 15px;
 margin: 0px;
 border-top: thin solid #000000;
+text-align: center;
 }

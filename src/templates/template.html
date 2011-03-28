@@ -13,15 +13,18 @@
 <body>
 
 <div id="header">
-	<p>C3PB User Management</p>
+	<p>C3PB User Management - HEADER</p>
 </div>
 
 <div id="nav">
     <ul>
-      <li><a href="/me">me</a></li>
+      <li><a href="/{{user.nick}}">me</a></li>
       <li><a href="/all">all</a></li>
-      <li><a href="/admin">admin</a></li>
-      <li><a href="/new">new</a></li>
+      
+      {% if user.isAdmin is defined %}
+    	<li><a href="/admin">admin</a></li>
+      	<li><a href="/new">new</a></li>
+      {% endif %}
       <li><a href="/logout">logout</a></li>
     </ul>  
 </div>
@@ -32,7 +35,7 @@
 </div>
 
 <div id="footer">
-	<p>C3PB User Management</p>
+	<p>C3PB User Management - FOOTER</p>
 </div>
  
 
