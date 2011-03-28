@@ -6,7 +6,12 @@
     Hello {{nick}}!
     
     <ul>
-    	<li><a href="/{{user.nick}}">Change your details</a></li>
-    	<li><a href="/all">show all users</a></li>
+    	<li><a href="/user/{{user.nick}}">Change your details</a></li>
+    	<li><a href="/user">show all users</a></li>
+    	{% if user.isAdmin is defined %}
+    	<li><a href="/admin">administer other users</a></li>
+      	<li><a href="/new">create a new new</a></li>
+      {% endif %}
+    	<li><a href="/logout">logout</a></li>
     </ul>
 {% endblock %}

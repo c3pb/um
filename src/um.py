@@ -15,7 +15,7 @@ import ConfigParser
 
 from jinja2 import Environment, PackageLoader
 from userdb.UserDB import UserDB
-
+from userdb.User import User
 #from pages.new import NewUser
 #from pages.admin import Admin
 
@@ -26,22 +26,53 @@ userDB = None
 #inside the yourapplication python package.
 env = Environment(loader=PackageLoader('um', 'templates'))
 
-
-class AllUsers():
-    '''
-    This class contains all pages for /all/**
-    '''
-    
+class NewUser():
     @cherrypy.expose
     def index(self):
+        user = cherrypy.session.get('user')
+        if 'admin' in user.roles:
+            template = env.get_template('new.html')
+            return template.render(title='New user',user=user)
+        return "not authorized"
+    
+    @cherrypy.expose
+    def create(self, nick=None,fullname=None,email=None,jid=None,password=None,password_again=None):
+        user = cherrypy.session.get('user')
+        if 'admin' in user.roles:
+            passwordhash = userDB.getPasswordHash(password)
+            newUser = User(nick,fullname, passwordhash, email, jid, ['member'])
+            
+            userDB.addUser(newUser)
+            
+            template = env.get_template('user.html')
+            return template.render(title='Details for '+newUser.nick , user=user, showuser=newUser)
+        return "not authorized"
+        
+        
+        
+class Users():
+    @cherrypy.expose
+    def index(self):
+        "/"
+        user = cherrypy.session.get('user')
         template = env.get_template('all.html')
-        users = userDB.getAllUsers()
-        return template.render(title='All Users',users=users )
-
-    def __init__(self):
-        '''
-        Constructor
-        '''
+        users=userDB.getAllUsers()
+        return template.render(title='All users',user=user,users=users)
+        
+    @cherrypy.expose
+    def default(self,nick):
+        "/users/$nick"
+        user = cherrypy.session.get('user')
+        if nick == user.nick:
+            template = env.get_template('me.html')
+            return template.render(title='ME',user=user)
+        else:
+            template = env.get_template('user.html')
+            showuser = userDB.getUser(nick)
+            if showuser:
+                return template.render(title='Details for '+showuser.nick , user=user, showuser=showuser)
+            else:
+                return template.render(title='Details for '+showuser.nick , user=user, error="User "+showuser.nick+" does not exist")
     
 class Root(object):
     @cherrypy.expose
@@ -51,21 +82,7 @@ class Root(object):
         user = cherrypy.session.get('user')
         return template.render(title='UM',user=user)
         
-    @cherrypy.expose
-    def default(self,nick):
-        "/$nick"
-        user = cherrypy.session.get('user')
-        if nick == user.nick:
-            template = env.get_template('me.html')
-            return template.render(title='ME',user=user)
-        else:
-            template = env.get_template('user.html')
-            showUser = userDB.getUser(nick)
-            if showUser:
-                return template.render(title='Details for '+nick ,nick=nick, user=showUser)
-            else:
-                return template.render(title='Details for '+nick ,nick=nick, error="User "+nick+" does not exist")
-    
+     
     @cherrypy.expose
     def logout(self):
         """ /logout """
@@ -73,11 +90,9 @@ class Root(object):
         cherrypy.lib.sessions.expire()
         raise cherrypy.HTTPRedirect("/")
         
-#    global userDB
-#    new = NewUser(env,userDB)
-#    admin = Admin(env,userDB)
-    all = AllUsers()
-#    debug = DebugArea()    
+
+    user = Users()
+    new = NewUser()
 
 
     

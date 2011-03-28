@@ -8,7 +8,8 @@
 {# http://www.favicon.cc/?action=icon&file_id=32641 Creative Commons based new hacker favicon #}
 <link href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAbUlEQVRIx82UOw4AIAhDrfEczt7fA+riZgxY8NPRwND2IdpQeKTELgIAML/v2olWBznXWgq/D7YCrwToCrzIMVdgFZ2AVlJV1xJYwUpD6JXA8Qoke/9BqL1vr7llAtofzjo3QXg7geNXIOk5hB3kjHms8LC50QAAAABJRU5ErkJggg==" rel="icon" type="image/x-icon" />
 
-<script type="text/javascript" src="/static/jquery-1.5.2.min.js"></script>   
+{% block scripthead %}{% endblock %}
+   
 </head>
 <body>
 
@@ -18,8 +19,8 @@
 
 <div id="nav">
     <ul>
-      <li><a href="/{{user.nick}}">me</a></li>
-      <li><a href="/all">all</a></li>
+      <li><a href="/user/{{user.nick}}">me</a></li>
+      <li><a href="/user/">all</a></li>
       
       {% if user.isAdmin is defined %}
     	<li><a href="/admin">admin</a></li>
