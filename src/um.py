@@ -26,6 +26,22 @@ userDB = None
 #inside the yourapplication python package.
 env = Environment(loader=PackageLoader('um', 'templates'))
 
+
+class Admin():
+    '''
+    This class contains all pages for /admin/**
+    '''
+    
+    @cherrypy.expose
+    def index(self):
+        user = cherrypy.session.get('user')
+        if 'admin' in user.roles:
+            template = self.env.get_template('admin.html')
+            users = self.userDB.getAllUsers()
+            return template.render(title='Admin only area', user=user, users=users)
+        return "not authorized"
+
+
 class NewUser():
     @cherrypy.expose
     def index(self):
@@ -93,7 +109,7 @@ class Root(object):
 
     user = Users()
     new = NewUser()
-
+    admin = Admin()
 
     
     
