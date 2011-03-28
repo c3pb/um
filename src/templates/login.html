@@ -1,19 +1,26 @@
-{% extends "template.html" %}
-{% block title %}Login{% endblock %}
+<html>
+<head>
+<title>Login</title>
 
-{% block content %}
-    <h1>Login</h1>
-   
+{# http://www.favicon.cc/?action=icon&file_id=32641 Creative Commons based new hacker favicon #}
+<link href="data:image/x-icon;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQEAYAAABPYyMiAAAABmJLR0T///////8JWPfcAAAACXBIWXMAAABIAAAASABGyWs+AAAAbUlEQVRIx82UOw4AIAhDrfEczt7fA+riZgxY8NPRwND2IdpQeKTELgIAML/v2olWBznXWgq/D7YCrwToCrzIMVdgFZ2AVlJV1xJYwUpD6JXA8Qoke/9BqL1vr7llAtofzjo3QXg7geNXIOk5hB3kjHms8LC50QAAAABJRU5ErkJggg==" rel="icon" type="image/x-icon" />
+
+</head>
+
+<body>
+
 	<p>{{error_msg}}</p>
 	
 	<form method="post" action="do_login">
       <input type="hidden" name="from_page" value="{{from_page}}" />
         
-        Username: <input type="text" name="username" value="%(username)s" /><br />
+        Username: <input type="text" name="username" value="{{ username }}" /><br />
         Password: <input type="password" name="password" /><br />
         <input type="submit" value="Log in" />
     </form>
+
+</body>
+</html>
 	
-{% endblock %}
 
 
