@@ -1,0 +1,18 @@
+{% extends "template.html" %}
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+    <h1>Details for {{showuser.nick}}</h1>
+    
+    {% if error is defined %}
+   		{{ error }}
+	{% else %}
+    <ul>
+   		<li> {{showuser.nick}} </li>
+  	 	<li> <a href="mailto:{{showuser.email}}">{{showuser.email}}</a> </li>
+    	<li> {{showuser.jid}} </li>
+    </ul>
+	{% endif %} 
+{% endblock %}
+
+

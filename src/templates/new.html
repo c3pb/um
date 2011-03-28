@@ -1,0 +1,79 @@
+{% extends "template.html" %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block scripthead %}
+<script type="text/javascript" src="/static/jquery-1.5.2.min.js"></script>
+<script type="text/javascript" src="/static/jquery.validate.min.js"></script>
+
+<style type="text/css">
+* { font-family: Verdana; font-size: 96%; }
+label { width: 10em; float: left; }
+label.error { float: none; color: red; padding-left: .5em; vertical-align: top; }
+p { clear: both; }
+.submit { margin-left: 12em; }
+em { font-weight: bold; padding-right: 1em; vertical-align: top; }
+</style>
+
+
+<script>
+  $(document).ready(function(){
+    $("#newUserForm").validate();
+  });
+  
+  $("#newUserForm").validate({
+  rules: {
+    password: "required",
+    password_again: {
+      equalTo: "#password"
+    }
+  }
+});
+
+</script>
+  
+{% endblock %}
+
+{% block content %}
+    <h1>Create new user</h1>
+    
+	 <form id="newUserForm" method="post" action="create">
+ <fieldset>
+   <legend>Create a new user </legend>
+   <p>
+     <label for="nick">Nickname</label>
+     <em>*</em><input id="nick" name="nick" size="25" class="required" minlength="3" />
+   </p>
+    <p>
+     <label for="fullname">Full name</label>
+     <em>*</em><input id="fullname" name="fullname" size="25" class="required" minlength="5" />
+   </p>
+   <p>
+     <label for="email">E-Mail</label>
+     <em>*</em><input id="email" name="email" size="25"  class="required email" />
+   </p>
+   <p>
+     <label for="jid">Jabber ID</label>
+     <em></em><input id="jid" name="jid" size="25"  class="optional email" />
+   </p>
+  
+   <p>
+     <label for="password">Your password</label>
+     <em>*</em><input type="password" id="password" name="password" size="16"  class="required" />
+   </p>
+   
+   <p>
+     <label for="password_again">Again:</label>
+     <em>*</em><input type="password" id="password_again" name="password_again" size="16"  class="required" />
+   </p>
+   
+   <p>
+     <input class="submit" type="submit" value="Submit"/>
+   </p>
+ </fieldset>
+ </form>
+ 
+ 
+ 
+{% endblock %}
+
+

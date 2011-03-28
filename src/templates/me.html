@@ -1,0 +1,17 @@
+{% extends "template.html" %}
+{% block title %}List of all Users{% endblock %}
+
+{% block content %}
+    <h1>Thats you!</h1>
+    
+    <ul>
+   		<li> {{user.nick}} </li>
+  	 	<li> {{user.email}} </li>
+    	<li> {{user.jid}} </li>
+    </ul>
+    
+    Change!!
+    
+{% endblock %}
+
+

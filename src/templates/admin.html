@@ -1,0 +1,17 @@
+{% extends "template.html" %}
+{% block title %}{{ title }}{% endblock %}
+
+{% block content %}
+    <h1>Admin Area</h1>
+    
+    
+    <ul>
+		{% for user in users %}
+		  <li><a href="{{ user }}">asdf</a></li>
+		{% endfor %}
+	</ul>
+	
+	
+{% endblock %}
+
+
